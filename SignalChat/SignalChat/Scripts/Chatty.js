@@ -11,8 +11,12 @@ $(function() {
         spoke: function (user, message) {
             chatWindows.append('<div><span class="user-name">' + user + ' said: <span class="words">' + message + '</span></div>');
         },
-        userConnectecd: function (user) { alert("User connected" + user); },
-        userDisconnectecd: function (user) { alert("User disconnected" + user); }
+        userConnectecd: function (user) {
+            chatWindows.append('<div class="welcome">User connected: ' + user + '!</div>');
+        },
+        userDisconnected: function (user) {
+            chatWindows.append('<div class="welcome">User disconnected: ' + user + '!</div>');
+        }
     });
 
     $("#dialog").dialog(

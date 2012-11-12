@@ -16,7 +16,6 @@ namespace SignalChat
         public void Speak(string message)
         {
             var name = _connections[Context.ConnectionId];
-            dynamic broadCastUsers;
             if (message.StartsWith("-p"))
             {
                 var messageSplit = message.Split(' ');
@@ -41,22 +40,17 @@ namespace SignalChat
         public override Task OnConnected()
         {
             Clients.Caller.connect(_connections.Values);
-            return new Task(() =>
-            {
-                var connectionId = Context.ConnectionId;
-                _connections.Add(connectionId, "");
-            });
+            var connectionId = Context.ConnectionId;
+            _connections.Add(connectionId, "");
+            return null;
         }
 
         public override Task OnDisconnected()
         {
-            return new Task(
-                () =>
-                {
-                    var name = _connections[Context.ConnectionId];
-                    _connections.Remove(Context.ConnectionId);
-                    GetAllClients().userDisonnectecd(name);
-                });
+            var name = _connections[Context.ConnectionId];
+            GetAllClients().userDisconnected(name);
+            _connections.Remove(Context.ConnectionId);
+            return null;
         }
 
         private static dynamic GetAllClients()
