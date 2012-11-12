@@ -5,6 +5,16 @@ $(function() {
     var name;
     var chatWindows = $(".chat-window");
     var messageWindow = $("#message");
+
+    var chatty = $.connection.chatty;
+    $.extend(chatty.client, {
+        spoke: function (user, message) {
+            chatWindows.append('<div><span class="user-name">' + user + ' said: <span class="words">' + message + '</span></div>');
+        },
+        userConnectecd: function (user) { alert("User connected" + user); },
+        userDisconnectecd: function (user) { alert("User disconnected" + user); }
+    });
+
     $("#dialog").dialog(
         {
             title: "What is your chatty name?",
@@ -13,6 +23,7 @@ $(function() {
                     name = $("#name").val();
                     if (name) {
                         $(this).dialog("close");
+                        chatty.server.setName(name);
                     }
                     chatWindows.append('<div class="welcome">Welcome ' + name + '!</div>');
                 }
@@ -23,15 +34,9 @@ $(function() {
                 return true;
             }
         });
-    var chatty = $.connection.chatty;
-    $.extend(chatty, {
-        spoke: function(user, message) {
-            chatWindows.append('<div><span class="user-name">' + user + ' said: <span class="words">' + message + '</span></div>');
-        }
-    });
     $("#speak").click(function() {
         if (messageWindow.val()) {
-            chatty.speak(name, messageWindow.val());
+            chatty.server.speak(messageWindow.val());
             messageWindow.val("");
         }
     });
