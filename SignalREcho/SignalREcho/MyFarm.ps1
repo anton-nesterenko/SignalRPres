@@ -1,7 +1,7 @@
-#$iisExpressExe = "c:\Program Files (x86)\IIS Express\iisexpress.exe";
-$iisExpressExe = "iisexpress";
-$ports = @(8090, 8091);
-$path = (Resolve-path .);
+$iisExpressExe = '"c:\Program Files (x86)\IIS Express\iisexpress.exe"'
+#$iisExpressExe = "iisexpress"
+$ports = @(8090, 8091)
+$path = (Resolve-path .)
 
 foreach($port in $ports)
 {
