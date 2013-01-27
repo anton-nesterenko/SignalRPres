@@ -81,7 +81,7 @@ namespace ChattyApp.Data
                                                 };
 
             await _connection.Start();
-            _hub.Invoke("setName", "Win8Tomas");
+            await _hub.Invoke("setName", "Win8Tomas");
         }
     }
 }
