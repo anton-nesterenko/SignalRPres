@@ -8,7 +8,7 @@ namespace EchoEcho
 {
     public class EchoConnection : PersistentConnection
     {
-        protected override System.Threading.Tasks.Task OnReceivedAsync(
+        protected override System.Threading.Tasks.Task OnReceived(
             IRequest request, string connectionId, string data)
         {
             return Connection.Broadcast(connectionId + ": " + data);

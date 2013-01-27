@@ -14,7 +14,7 @@ namespace EchoEcho
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapConnection<EchoConnection>("echo", "echo/{*operation}");
+            routes.MapConnection<EchoConnection>("echo", "echo");
 
             routes.MapRoute(
                 name: "Default",
