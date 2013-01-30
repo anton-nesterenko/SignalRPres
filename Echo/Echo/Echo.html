@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+    <body>
+        <input type="text" id="message"/>
+        <input type="button" id="send" value="do it now!"/>
+    </body>
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-1.0.0-rc2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.connection("echo");
+            var button = $("#send");
+            var textBox = $("#message");
+
+            connection.received(function(data) {
+                alert(data);
+            });
+            button.click(function() {
+                connection.send(textBox.val());
+                textBox.val("");
+            });
+
+            connection.stateChanged(function(stateData) {
+                alert(stateData.newState + " " + stateData.oldState);
+            });
+
+            connection.start().then(function() {
+                alert("Connected to server... yey!");
+            });
+        });
+    </script>
+</html>
